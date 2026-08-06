@@ -22,8 +22,13 @@ BEGIN
 
   -- If delete: recalculate for OLD customer
   IF TG_OP = 'DELETE' AND OLD.customer_id IS NOT NULL THEN
-    -- Explicitly set invoice_id to NULL on child payments first to prevent foreign key violations during update trigger
-    UPDATE public.payments SET invoice_id = NULL WHERE invoice_id = OLD.id;
+    -- Explicitly set invoice_id to NULL on any payments whose linked invoices no longer exist (covers multi-row deletes)
+    UPDATE public.payments p
+    SET invoice_id = NULL
+    WHERE p.invoice_id IS NOT NULL 
+      AND NOT EXISTS (
+        SELECT 1 FROM public.invoices i WHERE i.id = p.invoice_id
+      );
     
     PERFORM public.recalculate_customer_reconciliation(OLD.customer_id);
   END IF;
