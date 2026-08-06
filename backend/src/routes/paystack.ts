@@ -75,6 +75,7 @@ router.post("/verify", async (req: Request, res: Response) => {
       source: "paystack",
       channel: txn.channel,
       currency: txn.currency,
+      invoice_id: txn.metadata?.invoice_id || null,
     });
 
     res.json({

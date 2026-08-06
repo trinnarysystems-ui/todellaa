@@ -25,6 +25,7 @@ interface ReconcileInput {
   relationship?: string | null;
   currency?: string;
   customer_id?: string | null;
+  invoice_id?: string | null;
 }
 
 interface ReconcileResult {
@@ -141,72 +142,97 @@ export async function reconcileTransaction(
   let bestInvoice: any = null;
   let maxScore = 0;
 
-  const cleanPhone = (p?: string | null) => p ? p.replace(/\D/g, "") : "";
-  const cleanName = (n?: string | null) => n ? n.toLowerCase().replace(/[^a-z0-9]/g, "") : "";
-
-  const refClean = input.reference ? input.reference.trim().toUpperCase() : "";
-  const inputPhone = cleanPhone(input.customer_phone || input.mobile_number || input.paid_by_phone);
-  const inputEmail = input.customer_email ? input.customer_email.trim().toLowerCase() : "";
-  const inputName = cleanName(input.customer_name || input.paid_by_name);
-
-  for (const c of (allCustomers || [])) {
-    let score = 0;
-    let matchedInvoice: any = null;
-
-    // A. Reference / Invoice matching
-    if (c.customer_code && refClean === c.customer_code.trim().toUpperCase()) {
-      score += 50;
-    }
-
-    const customerInvoices = (allInvoices || []).filter(inv => inv.customer_id === c.id);
-    const invMatch = customerInvoices.find(inv => inv.invoice_number.trim().toUpperCase() === refClean);
-    if (invMatch) {
-      score += 50;
-      matchedInvoice = invMatch;
-    }
-
-    // B. Phone Match (+25 points)
-    const cPhone = cleanPhone(c.phone);
-    if (cPhone && inputPhone && (cPhone.endsWith(inputPhone) || inputPhone.endsWith(cPhone))) {
-      score += 25;
-    }
-
-    // C. Email Match (+25 points)
-    const cEmail = c.email ? c.email.trim().toLowerCase() : "";
-    if (cEmail && inputEmail && cEmail === inputEmail) {
-      score += 25;
-    }
-
-    // D. Fuzzy Name Match (+10 points)
-    const cName = cleanName(c.name);
-    if (cName && inputName && (cName.includes(inputName) || inputName.includes(cName))) {
-      score += 10;
-    }
-
-    // E. Amount Match (+15 points)
-    if (Math.abs(Number(c.due_amount) - input.amount) < 0.01 || Math.abs(Number(c.expected_amount) - input.amount) < 0.01) {
-      score += 15;
-    }
-    const amtMatch = customerInvoices.find(inv => Math.abs(Number(inv.amount) - input.amount) < 0.01);
-    if (amtMatch) {
-      score += 15;
-      if (!matchedInvoice) {
-        matchedInvoice = amtMatch;
+  // If invoice_id is explicitly provided, fetch/select it directly
+  if (input.invoice_id) {
+    const { data: inv } = await supabaseAdmin
+      .from("invoices")
+      .select("id, customer_id, invoice_number, amount, status, customers(id, name, phone, email, customer_code, expected_amount, due_amount)")
+      .eq("id", input.invoice_id)
+      .single();
+    if (inv) {
+      bestInvoice = {
+        id: inv.id,
+        customer_id: inv.customer_id,
+        invoice_number: inv.invoice_number,
+        amount: inv.amount,
+        status: inv.status
+      };
+      if (inv.customers) {
+        bestCustomer = inv.customers;
       }
+      maxScore = 100;
     }
+  }
 
-    // F. Currency Penalty
-    score += currencyPenalty;
+  // If not resolved by explicit invoice ID, run heuristic matching
+  if (!bestInvoice) {
+    const cleanPhone = (p?: string | null) => p ? p.replace(/\D/g, "") : "";
+    const cleanName = (n?: string | null) => n ? n.toLowerCase().replace(/[^a-z0-9]/g, "") : "";
 
-    // G. Explicit customer ID match (+60 points to guarantee auto-verify threshold)
-    if (input.customer_id && c.id === input.customer_id) {
-      score += 60;
-    }
+    const refClean = input.reference ? input.reference.trim().toUpperCase() : "";
+    const inputPhone = cleanPhone(input.customer_phone || input.mobile_number || input.paid_by_phone);
+    const inputEmail = input.customer_email ? input.customer_email.trim().toLowerCase() : "";
+    const inputName = cleanName(input.customer_name || input.paid_by_name);
 
-    if (score > maxScore) {
-      maxScore = score;
-      bestCustomer = c;
-      bestInvoice = matchedInvoice;
+    for (const c of (allCustomers || [])) {
+      let score = 0;
+      let matchedInvoice: any = null;
+
+      // A. Reference / Invoice matching
+      if (c.customer_code && refClean === c.customer_code.trim().toUpperCase()) {
+        score += 50;
+      }
+
+      const customerInvoices = (allInvoices || []).filter(inv => inv.customer_id === c.id);
+      const invMatch = customerInvoices.find(inv => inv.invoice_number.trim().toUpperCase() === refClean);
+      if (invMatch) {
+        score += 50;
+        matchedInvoice = invMatch;
+      }
+
+      // B. Phone Match (+25 points)
+      const cPhone = cleanPhone(c.phone);
+      if (cPhone && inputPhone && (cPhone.endsWith(inputPhone) || inputPhone.endsWith(cPhone))) {
+        score += 25;
+      }
+
+      // C. Email Match (+25 points)
+      const cEmail = c.email ? c.email.trim().toLowerCase() : "";
+      if (cEmail && inputEmail && cEmail === inputEmail) {
+        score += 25;
+      }
+
+      // D. Fuzzy Name Match (+10 points)
+      const cName = cleanName(c.name);
+      if (cName && inputName && (cName.includes(inputName) || inputName.includes(cName))) {
+        score += 10;
+      }
+
+      // E. Amount Match (+15 points)
+      if (Math.abs(Number(c.due_amount) - input.amount) < 0.01 || Math.abs(Number(c.expected_amount) - input.amount) < 0.01) {
+        score += 15;
+      }
+      const amtMatch = customerInvoices.find(inv => Math.abs(Number(inv.amount) - input.amount) < 0.01);
+      if (amtMatch) {
+        score += 15;
+        if (!matchedInvoice) {
+          matchedInvoice = amtMatch;
+        }
+      }
+
+      // F. Currency Penalty
+      score += currencyPenalty;
+
+      // G. Explicit customer ID match (+60 points to guarantee auto-verify threshold)
+      if (input.customer_id && c.id === input.customer_id) {
+        score += 60;
+      }
+
+      if (score > maxScore) {
+        maxScore = score;
+        bestCustomer = c;
+        bestInvoice = matchedInvoice;
+      }
     }
   }
 
@@ -272,8 +298,8 @@ export async function reconcileTransaction(
   let outcome: "matched" | "partial" | "overpaid" | "unmatched" = "unmatched";
 
   if (customerId) {
-    // Determine status relative to customer expectations
-    const expected = Number(bestCustomer.expected_amount || 0);
+    // Determine status relative to specific invoice expected amount, or fall back to customer overall expectations
+    const expected = bestInvoice ? Number(bestInvoice.amount || 0) : Number(bestCustomer.expected_amount || 0);
     if (input.amount >= expected && expected > 0) {
       outcome = input.amount > expected ? "overpaid" : "matched";
     } else if (input.amount > 0 && input.amount < expected) {

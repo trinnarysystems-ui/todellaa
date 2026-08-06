@@ -179,6 +179,7 @@ export async function syncPaystackTransactions(organizationId: string): Promise<
             source: "paystack",
             channel: txn.channel,
             currency: txn.currency,
+            invoice_id: txn.metadata?.invoice_id || null,
           });
 
           if (result.status === "duplicate") {
@@ -241,6 +242,7 @@ export async function syncPaystackTransactions(organizationId: string): Promise<
         source: "paystack",
         channel: txn.channel,
         currency: txn.currency,
+        invoice_id: txn.metadata?.invoice_id || null,
       });
 
       if (result.status === "duplicate") {
@@ -472,6 +474,7 @@ export async function verifyAndUpdateInvoicePayment(
     channel: txn.channel,
     currency: txn.currency,
     customer_id: invoice.customer_id,
+    invoice_id: targetInvoiceId,
   });
 
   await supabaseAdmin.from("audit_logs").insert({
