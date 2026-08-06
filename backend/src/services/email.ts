@@ -242,7 +242,7 @@ export async function sendInvoiceEmail(params: SendInvoiceEmailParams): Promise<
                     Todella Ltd | 📞 +234 123 4567
                   </td>
                   <td align="right" style="font-size:11px;color:#ffffff;font-weight:600;">
-                    <a href="https://todella-omega.vercel.app/" style="color:#ffffff;text-decoration:none;font-weight:700;">🌐 todella-omega.vercel.app</a>
+                    <a href="https://todellaa.com/" style="color:#ffffff;text-decoration:none;font-weight:700;">🌐 todellaa.com</a>
                   </td>
                 </tr>
               </table>
@@ -580,7 +580,7 @@ export async function sendInvitationEmail(params: SendInvitationEmailParams): Pr
                     Todella Ltd | 📞 +234 123 4567
                   </td>
                   <td align="right" style="font-size:11px;color:#ffffff;font-weight:600;">
-                    <a href="https://todella-omega.vercel.app/" style="color:#ffffff;text-decoration:none;font-weight:700;">🌐 todella-omega.vercel.app</a>
+                    <a href="https://todellaa.com/" style="color:#ffffff;text-decoration:none;font-weight:700;">🌐 todellaa.com</a>
                   </td>
                 </tr>
               </table>
