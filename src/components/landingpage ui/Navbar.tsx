@@ -2,15 +2,30 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { Menu, X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png";
+import PilotBanner from "./PilotBanner";
 
 interface NavbarProps {
   onOpenTrialModal?: () => void;
+  showBanner?: boolean;
 }
 
-export default function Navbar({ onOpenTrialModal }: NavbarProps) {
+export default function Navbar({ onOpenTrialModal, showBanner = true }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("todella_banner_dismissed") === "true";
+    }
+    return false;
+  });
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleCloseBanner = () => {
+    setBannerDismissed(true);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("todella_banner_dismissed", "true");
+    }
+  };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
@@ -48,6 +63,12 @@ export default function Navbar({ onOpenTrialModal }: NavbarProps) {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full font-sans">
+      {showBanner && !bannerDismissed && (
+        <PilotBanner
+          onOpenTrialModal={handleTrialClick}
+          onClose={handleCloseBanner}
+        />
+      )}
       {/* Main Header Navbar */}
       <header className="bg-white/90 backdrop-blur-md border-b border-[#e6e4dc] transition-all">
         <div className="flex items-center justify-between px-4 sm:px-8 lg:px-12 py-3.5 max-w-7xl mx-auto w-full">
