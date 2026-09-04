@@ -134,7 +134,6 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#737373]">
           <div>© 2026 TODELLAA. All rights reserved.</div>
-          <div>Made with ❤️ in Ghana</div>
         </div>
 
       </div>

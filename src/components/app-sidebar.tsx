@@ -18,7 +18,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 
 const items = [
-  { title: "Home", url: "/", icon: Home },
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Services", url: "/services", icon: ClipboardList },
   { title: "Invoices", url: "/invoices", icon: FileText },
@@ -72,7 +71,7 @@ export function AppSidebar() {
           </svg>
           {!collapsed && (
             <div className="flex flex-col min-w-0">
-              <span className="font-extrabold text-sm tracking-tight text-white leading-none">
+              <span className="font-extrabold text-sm tracking-tight text-slate-900 leading-none">
                 Todellaa
               </span>
               <span className="text-[10px] text-sidebar-foreground/60 font-medium truncate mt-1">{organization?.name ?? "Workspace"}</span>
@@ -82,7 +81,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/45 font-bold uppercase tracking-wider text-[10px]">Workspace</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/55 font-bold uppercase tracking-wider text-[10px]">Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {allowedItems.map((item) => (
@@ -103,7 +102,7 @@ export function AppSidebar() {
         {!collapsed && profile && (
           <div className="px-2 py-1.5 text-xs text-sidebar-foreground">
             <p className="font-bold truncate text-[11px] uppercase tracking-wider text-sidebar-foreground/50 leading-none">User</p>
-            <p className="font-semibold truncate text-white mt-1">{profile.full_name} ({role})</p>
+            <p className="font-semibold truncate text-slate-900 mt-1">{profile.full_name} ({role})</p>
           </div>
         )}
         <Button 

@@ -3,7 +3,11 @@ import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { Menu, X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
 import logo from "@/assets/logo.png";
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenTrialModal?: () => void;
+}
+
+export default function Navbar({ onOpenTrialModal }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,7 +37,14 @@ export default function Navbar() {
     }
   };
 
-
+  const handleTrialClick = () => {
+    setMobileMenuOpen(false);
+    if (onOpenTrialModal) {
+      onOpenTrialModal();
+    } else {
+      navigate({ to: "/signup" });
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 w-full font-sans">
@@ -80,12 +91,12 @@ export default function Navbar() {
             >
               Login
             </Link>
-            <Link
-              to="/signup"
-              className="bg-[#e8562a] hover:bg-[#d44820] text-white font-semibold text-[14px] py-2.5 px-5 rounded-lg transition-all shadow-xs"
+            <button
+              onClick={handleTrialClick}
+              className="bg-[#e8562a] hover:bg-[#d44820] text-white font-semibold text-[14px] py-2.5 px-5 rounded-lg transition-all shadow-xs cursor-pointer"
             >
               Start Free Trial
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -123,13 +134,12 @@ export default function Navbar() {
               >
                 Login
               </Link>
-              <Link
-                to="/signup"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-semibold text-center py-2.5 bg-[#e8562a] text-white rounded-lg shadow-xs"
+              <button
+                onClick={handleTrialClick}
+                className="text-sm font-semibold text-center py-2.5 bg-[#e8562a] text-white rounded-lg shadow-xs cursor-pointer w-full"
               >
                 Start Free Trial
-              </Link>
+              </button>
             </div>
           </div>
         )}

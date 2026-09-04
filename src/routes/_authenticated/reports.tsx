@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { DateRangeFilter, DateRangeFilterValue } from "@/components/date-range-filter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/_authenticated/reports")({
   head: () => ({ meta: [{ title: "Reports — Todellaa" }] }),
@@ -33,6 +33,12 @@ function ReportsPage() {
     startDate: null,
     endDate: null,
   });
+
+  useEffect(() => {
+    if (organization?.id) {
+      localStorage.setItem(`todella_visited_reports_${organization.id}`, "true");
+    }
+  }, [organization?.id]);
 
   const { data } = useQuery({
     queryKey: ["reports", organization?.id, dateRange],

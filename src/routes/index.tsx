@@ -44,7 +44,7 @@ function LandingPage() {
 
       {/* Page Layout */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        <Navbar />
+        <Navbar onOpenTrialModal={handleOpenTrialModal} />
         <main className="grow">
           <Hero onOpenTrialModal={handleOpenTrialModal} />
           <Stats />

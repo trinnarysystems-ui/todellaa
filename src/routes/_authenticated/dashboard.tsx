@@ -95,10 +95,10 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
   };
 
   return (
-    <Card className="border-purple-500/20 bg-gradient-to-r from-purple-500/10 to-indigo-500/5 backdrop-blur-xl shadow-[var(--shadow-card)] rounded-[2rem] overflow-hidden p-6 border transition-all duration-200">
+    <Card className="border-primary/20 bg-gradient-to-r from-primary/10 via-card to-primary/5 backdrop-blur-xl shadow-[var(--shadow-card)] rounded-[2rem] overflow-hidden p-6 border transition-all duration-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+          <div className="h-10 w-10 rounded-full bg-primary/15 flex items-center justify-center text-primary shrink-0 border border-primary/20">
             <Sparkles className="h-5 w-5 animate-pulse" />
           </div>
           <div>
@@ -109,7 +109,7 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
         {!summary && !loading && (
           <Button
             onClick={generateSummary}
-            className="bg-purple-600 hover:bg-purple-500 text-white font-semibold shadow-md px-5 h-9 text-xs rounded-full shrink-0"
+            className="bg-primary hover:bg-primary/90 text-white font-semibold shadow-md px-5 h-9 text-xs rounded-full shrink-0"
           >
             Generate Insights
           </Button>
@@ -118,7 +118,7 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
 
       {loading && (
         <div className="mt-4 flex items-center gap-2.5 text-sm text-muted-foreground animate-pulse">
-          <Loader2 className="h-4 w-4 animate-spin text-purple-500" />
+          <Loader2 className="h-4 w-4 animate-spin text-primary" />
           <span>Analyzing ledger reconciliation trends and checking duplicate payloads...</span>
         </div>
       )}
@@ -182,6 +182,15 @@ function DashboardPage() {
       setIsAutoDismissed(true);
     }
   }, [organization?.id]);
+
+  const handleResetWizard = () => {
+    if (organization?.id) {
+      const dismissedKey = `todella_onboarding_dismissed_${organization.id}`;
+      localStorage.removeItem(dismissedKey);
+      localStorage.removeItem(`todella_visited_reports_${organization.id}`);
+    }
+    setWizardDismissed(false);
+  };
 
   const handleDismiss = () => {
     if (organization?.id) {
@@ -324,14 +333,14 @@ function DashboardPage() {
     {
       title: "View Reports",
       description: "Check analytics and audit reports.",
-      done: false,
+      done: typeof window !== "undefined" && (localStorage.getItem(`todella_visited_reports_${organization?.id}`) === "true" || (data?.chart?.length ?? 0) > 0),
       href: "/reports",
     },
   ];
 
   const stepsCompleted = onboardingSteps.filter((s) => s.done).length;
   const isViewer = role === "viewer";
-  const showWizard = !isViewer && !wizardDismissed && !isAutoDismissed && stepsCompleted < 5;
+  const showWizard = !isViewer && !wizardDismissed && !isAutoDismissed;
 
   const moneyKpis = [
     {
@@ -439,10 +448,17 @@ function DashboardPage() {
         <Card className="relative border-primary/30 bg-gradient-to-br from-primary/5 via-card to-primary/5 shadow-[var(--shadow-card)] rounded-2xl overflow-hidden">
           <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
             <button
-              onClick={handleDismiss}
+              onClick={handleResetWizard}
               className="h-7 text-[10px] font-bold px-2.5 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/40"
+              title="Reset onboarding checklist progress"
             >
-              Dismiss Forever
+              Reset Checklist
+            </button>
+            <button
+              onClick={handleDismiss}
+              className="h-7 text-[10px] font-bold px-3 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/40"
+            >
+              I've got it, don't show again
             </button>
             <button
               onClick={handleDismiss}
@@ -465,6 +481,21 @@ function DashboardPage() {
                 </p>
               </div>
             </div>
+
+            {stepsCompleted === 5 && (
+              <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-bold flex items-center justify-between gap-3 animate-fade-in">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0" />
+                  <span>🎉 Outstanding! You have completed all 5 onboarding steps!</span>
+                </div>
+                <button
+                  onClick={handleResetWizard}
+                  className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 underline hover:no-underline"
+                >
+                  Reset Progress
+                </button>
+              </div>
+            )}
             <div className="w-full bg-muted/40 rounded-full h-2 mb-6 overflow-hidden">
               <div
                 className="bg-primary h-full rounded-full transition-all duration-500"

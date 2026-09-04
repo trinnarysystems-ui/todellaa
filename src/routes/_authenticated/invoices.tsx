@@ -1175,6 +1175,19 @@ function InvoicesPage() {
                               className="w-48 bg-card border border-border/80 rounded-2xl shadow-xl p-1.5 z-50"
                             >
                               <DropdownMenuItem
+                                onClick={() => {
+                                  const custName = inv.customers?.name || "Customer";
+                                  const custPhone = inv.customers?.phone ? inv.customers.phone.replace(/[^0-9]/g, "") : "";
+                                  const shareUrl = `${window.location.origin}/invoice/${inv.id}`;
+                                  const msg = `Hello ${custName}, your invoice #${inv.invoice_number} is GHS ${inv.amount}. View & confirm payment receipt: ${shareUrl}`;
+                                  const waUrl = custPhone ? `https://wa.me/${custPhone}?text=${encodeURIComponent(msg)}` : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+                                  window.open(waUrl, "_blank");
+                                }}
+                                className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 cursor-pointer transition-colors"
+                              >
+                                <span className="text-sm">💬</span> Send via WhatsApp
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
                                 onClick={() => setOutboxInvoice(inv)}
                                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold hover:bg-accent cursor-pointer transition-colors"
                               >

@@ -141,7 +141,7 @@ export default function PilotRegistrationModal({ isOpen, onClose }: PilotRegistr
                   <input
                     type="text"
                     required
-                    placeholder="Ama Serwaa"
+                    placeholder="Ama Mensah"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full rounded-xl border border-neutral-300 p-2.5 text-xs focus:ring-2 focus:ring-[#e8562a]"
@@ -152,7 +152,7 @@ export default function PilotRegistrationModal({ isOpen, onClose }: PilotRegistr
                   <input
                     type="text"
                     required
-                    placeholder="Serwaa Beauty Salon / Academy"
+                    placeholder="Mensah Enterprise"
                     value={formData.orgName}
                     onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
                     className="w-full rounded-xl border border-neutral-300 p-2.5 text-xs focus:ring-2 focus:ring-[#e8562a]"
@@ -208,12 +208,21 @@ export default function PilotRegistrationModal({ isOpen, onClose }: PilotRegistr
                 >
                   <option>School</option>
                   <option>Training institution</option>
-                  <option>Salon/Beauty business</option>
+                  <option>Beauty business</option>
                   <option>Retail/business (instalment payments)</option>
                   <option>NGO</option>
                   <option>Church/Religious organisation</option>
                   <option>Other</option>
                 </select>
+                {formData.orgType === "Other" && (
+                  <input
+                    type="text"
+                    placeholder="Please specify your organisation type..."
+                    value={formData.orgTypeOther}
+                    onChange={(e) => setFormData({ ...formData, orgTypeOther: e.target.value })}
+                    className="w-full mt-2 rounded-xl border border-neutral-300 p-2.5 text-xs focus:ring-2 focus:ring-[#e8562a] animate-fade-in"
+                  />
+                )}
               </div>
             </div>
 
@@ -258,6 +267,15 @@ export default function PilotRegistrationModal({ isOpen, onClose }: PilotRegistr
                     </label>
                   ))}
                 </div>
+                {formData.paymentMethods.includes("Other") && (
+                  <input
+                    type="text"
+                    placeholder="Please specify other payment method(s)..."
+                    value={formData.biggestDifficulty}
+                    onChange={(e) => setFormData({ ...formData, biggestDifficulty: e.target.value })}
+                    className="w-full mt-2 rounded-xl border border-neutral-300 p-2.5 text-xs focus:ring-2 focus:ring-[#e8562a] animate-fade-in"
+                  />
+                )}
               </div>
 
               <div>
