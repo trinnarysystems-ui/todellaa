@@ -40,7 +40,7 @@ export default function Engagement() {
     <section className="py-16 sm:py-24 bg-white text-[#010101] font-sans border-t border-[#e6e4dc]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="bg-[#faf9f6] border border-[#ecebe4] rounded-3xl p-8 sm:p-12 shadow-sm relative overflow-hidden">
+        <div className="bg-white/70 border border-[#e6e4dc] rounded-3xl p-8 sm:p-12 shadow-xs relative overflow-hidden">
           
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
             

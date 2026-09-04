@@ -123,8 +123,8 @@ export default function Capabilities() {
       title: "Smart Insights & Reports",
       desc: "Get smart insights, payment trends, and automated financial summaries.",
       widget: (
-        <div className="bg-[#faf9f6] border border-[#ecebe4] rounded-xl p-2 mt-4 font-sans text-[10px] text-[#010101]">
-          <span className="font-bold block">💡 Smart Tip:</span>
+        <div className="bg-slate-50 border border-[#ecebe4] rounded-xl p-2 mt-4 font-sans text-[10px] text-[#010101]">
+          <span className="font-bold block text-[#010101]">💡 Smart Tip:</span>
           <span className="text-[#737373]">85% of MoMo payments cleared on Fridays.</span>
         </div>
       ),

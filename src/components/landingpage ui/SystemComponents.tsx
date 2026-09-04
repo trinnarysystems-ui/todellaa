@@ -114,7 +114,7 @@ export default function SystemComponents() {
           </div>
 
           {/* RIGHT BLOCK: SMART AUTOMATION SPOTLIGHT */}
-          <div id="ai-tools" className="lg:col-span-6 bg-[#faf9f6] border border-[#ecebe4] rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm">
+          <div id="ai-tools" className="lg:col-span-6 bg-white/70 border border-[#e6e4dc] rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold text-[#737373] uppercase tracking-wider mb-2">
                 <Sparkles className="w-4 h-4 text-[#e8562a]" /> Smart Automation
@@ -175,14 +175,14 @@ export default function SystemComponents() {
             </div>
 
             {/* Interactive Sub-card: Potential Matches (12) */}
-            <div className="bg-white rounded-2xl border border-[#ecebe4] p-4 shadow-sm">
-              <div className="flex items-center justify-between border-b border-[#f0eee6] pb-2 mb-3">
+            <div className="bg-slate-50/80 rounded-2xl border border-[#e6e4dc] p-4 shadow-2xs">
+              <div className="flex items-center justify-between border-b border-[#e6e4dc]/60 pb-2 mb-3">
                 <span className="text-xs font-bold text-[#010101]">Potential Matches (12)</span>
-                <span className="text-[10px] font-semibold text-[#404040] bg-[#faf9f6] border border-[#e6e4dc] px-2 py-0.5 rounded">Live Suggestions</span>
+                <span className="text-[10px] font-semibold text-[#404040] bg-white border border-[#e6e4dc] px-2 py-0.5 rounded">Live Suggestions</span>
               </div>
 
               <div className="space-y-2 mb-3">
-                <div className="flex items-center justify-between text-xs bg-[#faf9f6] p-2 rounded-lg border border-[#f0eee6]">
+                <div className="flex items-center justify-between text-xs bg-white p-2 rounded-lg border border-[#e6e4dc]">
                   <div>
                     <p className="font-semibold text-[#010101]">Payment of GHS 1,500</p>
                     <span className="text-[10px] text-[#737373]">from John Doe</span>
@@ -193,7 +193,7 @@ export default function SystemComponents() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs bg-[#faf9f6] p-2 rounded-lg border border-[#f0eee6]">
+                <div className="flex items-center justify-between text-xs bg-white p-2 rounded-lg border border-[#e6e4dc]">
                   <div>
                     <p className="font-semibold text-[#010101]">Payment of GHS 2,000</p>
                     <span className="text-[10px] text-[#737373]">from Acme Ltd.</span>
@@ -204,7 +204,7 @@ export default function SystemComponents() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs bg-[#faf9f6] p-2 rounded-lg border border-[#f0eee6]">
+                <div className="flex items-center justify-between text-xs bg-white p-2 rounded-lg border border-[#e6e4dc]">
                   <div>
                     <p className="font-semibold text-[#010101]">Payment of GHS 750</p>
                     <span className="text-[10px] text-[#737373]">from Mary Quaye</span>
