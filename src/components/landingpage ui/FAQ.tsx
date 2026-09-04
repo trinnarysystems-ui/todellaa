@@ -50,7 +50,7 @@ function FAQAccordionItem({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       className={`bg-white/80 border rounded-2xl p-6 transition-all shadow-2xs ${
-        isOpen ? "border-[#3675ff] bg-white ring-1 ring-[#3675ff]/20 shadow-sm" : "border-neutral-200/80 hover:border-neutral-300 hover:bg-white"
+        isOpen ? "border-[#e8562a] bg-white ring-1 ring-[#e8562a]/20 shadow-sm" : "border-neutral-200/80 hover:border-neutral-300 hover:bg-white"
       }`}
     >
       <button
@@ -61,7 +61,7 @@ function FAQAccordionItem({
         <span
           className={`shrink-0 w-8 h-8 rounded-xl border flex items-center justify-center transition-colors ${
             isOpen
-              ? "bg-[#3675ff] border-[#3675ff] text-white"
+              ? "bg-[#e8562a] border-[#e8562a] text-white"
               : "bg-neutral-100 border-neutral-200 text-neutral-600 hover:border-neutral-300"
           }`}
         >

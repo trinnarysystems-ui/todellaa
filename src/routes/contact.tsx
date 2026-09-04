@@ -137,13 +137,13 @@ function ContactPage() {
                 className="rounded-[32px] border border-slate-200/60 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <div className="flex gap-4 items-start">
-                  <div className="h-10 w-10 rounded-xl bg-[#3675ff]/10 border border-[#3675ff]/20 flex items-center justify-center text-[#3675ff] shrink-0">
+                  <div className="h-10 w-10 rounded-xl bg-[#e8562a]/10 border border-[#e8562a]/20 flex items-center justify-center text-[#e8562a] shrink-0">
                     <ShieldAlert className="h-5 w-5" />
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-slate-900">Skype Communications</h3>
                     <p className="text-[10px] font-mono text-slate-400 mt-0.5">// INSTANT MESSENGER</p>
-                    <span className="text-xs text-[#3675ff] block mt-2 font-semibold font-sans">
+                    <span className="text-xs text-[#e8562a] block mt-2 font-semibold font-sans">
                       Skype: noskim1
                     </span>
                   </div>
