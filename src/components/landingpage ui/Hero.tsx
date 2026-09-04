@@ -79,9 +79,8 @@ export default function Hero({ onOpenTrialModal }: HeroProps) {
               className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] tracking-[-0.035em] text-[#010101] leading-[1.08] mb-6"
             >
               Try TODELLAA <br />
-              Free for 2 Months. <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#e8562a] via-[#f06e42] to-[#e8562a]">
-                Zero Risk.
+                Free for 2 Months.
               </span>
             </motion.h1>
 
