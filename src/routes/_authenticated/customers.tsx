@@ -751,12 +751,12 @@ function CustomersPage() {
 
                     <div className="space-y-1.5">
                       <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground/80 pl-1">
-                        Email Address
+                        Email Address (Optional)
                       </Label>
                       <Input
                         type="email"
                         className="rounded-full px-5 h-10 border-border/80 focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/85 bg-background text-foreground transition-all"
-                        placeholder="john@example.com"
+                        placeholder="john@example.com (Optional)"
                         {...form.register("email")}
                       />
                       {form.formState.errors.email?.message && (

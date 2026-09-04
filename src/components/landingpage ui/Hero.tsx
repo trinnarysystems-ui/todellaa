@@ -18,7 +18,11 @@ import {
   Smartphone
 } from "lucide-react";
 
-export default function Hero() {
+interface HeroProps {
+  onOpenTrialModal?: () => void;
+}
+
+export default function Hero({ onOpenTrialModal }: HeroProps) {
   const containerVariants = {
     hidden: {},
     visible: {
@@ -61,32 +65,32 @@ export default function Hero() {
             {/* Pill Badge */}
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#fcdcc5] bg-white/90 shadow-xs select-none mb-6 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#fcdcc5] bg-[#fff8f5] shadow-xs select-none mb-6 backdrop-blur-sm"
             >
               <Sparkles className="w-4 h-4 text-[#e8562a]" />
               <span className="text-xs sm:text-sm font-bold text-[#7c2d12]">
-                Smart Payment Verification & Reconciliation
+                Limited Early Access — TODELLAA User Trial
               </span>
             </motion.div>
 
             {/* Headline */}
             <motion.h1
               variants={itemVariants}
-              className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[56px] xl:text-[62px] tracking-[-0.035em] text-[#010101] leading-[1.08] mb-6"
+              className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[54px] xl:text-[60px] tracking-[-0.035em] text-[#010101] leading-[1.08] mb-6"
             >
-              Verify. Reconcile. <br />
-              Grow with <br />
+              Try TODELLAA <br />
+              Free for 2 Months. <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#e8562a] via-[#f06e42] to-[#e8562a]">
-                Confidence.
+                Zero Risk.
               </span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p
               variants={itemVariants}
-              className="text-[#525252] text-base sm:text-lg leading-[1.65] max-w-xl mb-8 font-normal"
+              className="text-[#525252] text-base sm:text-lg leading-[1.65] max-w-xl mb-6 font-normal"
             >
-              TODELLAA automates payment verification, matches payments from multiple sources, and gives you real-time clarity in one secure platform.
+              Manage your invoices, payments and outstanding balances more easily with TODELLAA. We're offering <strong>two months of free access to our first 15 selected institutions</strong>.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -94,17 +98,17 @@ export default function Hero() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-8"
             >
-              <Link
-                to="/signup"
-                className="bg-[#e8562a] hover:bg-[#d44820] text-white font-bold text-base py-3.5 px-7 rounded-xl transition-all shadow-md text-center flex items-center justify-center gap-2 group"
+              <button
+                onClick={onOpenTrialModal}
+                className="bg-[#e8562a] hover:bg-[#d44820] text-white font-bold text-base py-3.5 px-7 rounded-xl transition-all shadow-md text-center flex items-center justify-center gap-2 group cursor-pointer"
               >
-                Start Free Trial <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+                Start Your Free Trial <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
               <a
-                href="#demo"
-                className="bg-white hover:bg-neutral-50 text-[#171717] font-bold text-base py-3.5 px-7 rounded-xl border border-[#d4d4d4] transition-all shadow-xs text-center"
+                href="#pricing"
+                className="bg-white hover:bg-neutral-50 text-[#171717] font-bold text-base py-3.5 px-7 rounded-xl border border-[#d4d4d4] transition-all shadow-xs text-center cursor-pointer"
               >
-                Book a Demo
+                View Plans & Pricing
               </a>
             </motion.div>
 
@@ -115,15 +119,11 @@ export default function Hero() {
             >
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#e8562a]" />
-                <span>No credit card required</span>
+                <span>No payment required during trial</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#e8562a]" />
-                <span>Setup in minutes</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#e8562a]" />
-                <span>Cancel anytime</span>
+                <span>Plans from GHS 100/mo after trial</span>
               </div>
             </motion.div>
 
@@ -136,8 +136,8 @@ export default function Hero() {
                 <Zap className="w-4 h-4" />
               </div>
               <div className="text-xs">
-                <p className="font-bold text-[#010101]">Instant Match Rate: 99.4%</p>
-                <span className="text-[#737373]">Paystack, MoMo & Bank Feeds Live Sync</span>
+                <p className="font-bold text-[#010101]">Automated Payment Matching</p>
+                <span className="text-[#737373]">Paystack, MoMo & Bank Statement Sync</span>
               </div>
             </motion.div>
 

@@ -31,6 +31,10 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
 
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetModalOpen, setResetModalOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+
   useEffect(() => {
     if (!authLoading && user) navigate({ to: "/dashboard" });
   }, [user, authLoading, navigate]);
@@ -50,6 +54,29 @@ function LoginPage() {
     }
     toast.success("Welcome back!");
     navigate({ to: "/dashboard" });
+  };
+
+  const handleForgotPassword = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const currentEmail = form.getValues("email") || resetEmail;
+    if (!currentEmail || !currentEmail.includes("@")) {
+      setResetModalOpen(true);
+      toast.info("Please enter your email address to receive password reset instructions.");
+      return;
+    }
+
+    setResetLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(currentEmail, {
+      redirectTo: `${window.location.origin}/login`,
+    });
+    setResetLoading(false);
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success(`Password reset instructions sent to ${currentEmail}`);
+      setResetModalOpen(false);
+    }
   };
 
   return (
@@ -191,9 +218,13 @@ function LoginPage() {
                 <span>Remember me</span>
               </label>
 
-              <a href="#" className="font-semibold text-neutral-800 hover:underline">
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="font-semibold text-neutral-800 hover:underline cursor-pointer bg-transparent border-0 p-0"
+              >
                 Forgot password?
-              </a>
+              </button>
             </div>
 
             {/* LogIn Button */}
@@ -216,6 +247,48 @@ function LoginPage() {
           </p>
         </div>
       </div>
+
+      {/* Forgot Password Reset Modal */}
+      {resetModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full border border-neutral-200 shadow-2xl space-y-4">
+            <h3 className="text-xl font-bold text-neutral-900 font-sans">Reset Password</h3>
+            <p className="text-xs text-neutral-600 font-sans leading-relaxed">
+              Enter your account email address below. We'll send you a link to reset your password.
+            </p>
+            <div className="space-y-2">
+              <Label htmlFor="reset-email-input" className="text-xs font-semibold text-neutral-700">Email Address</Label>
+              <Input
+                id="reset-email-input"
+                type="email"
+                placeholder="email@example.com"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                className="rounded-xl h-11 border border-neutral-300 px-4 text-sm font-sans"
+              />
+            </div>
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setResetModalOpen(false)}
+                className="rounded-xl text-xs font-semibold"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                disabled={resetLoading || !resetEmail}
+                onClick={handleForgotPassword}
+                className="rounded-xl bg-black hover:bg-neutral-800 text-white text-xs font-bold px-5"
+              >
+                {resetLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" /> : null}
+                Send Reset Link
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

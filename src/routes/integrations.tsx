@@ -15,12 +15,12 @@ export const Route = createFileRoute("/integrations")({
 
 function IntegrationsPage() {
   const channels = [
-    { name: "Paystack API", type: "Gateway", status: "Certified", delay: "Real-time Webhook" },
-    { name: "MTN Mobile Money", type: "Mobile Wallet", status: "Active Direct", delay: "Instant Push" },
-    { name: "Telecel Cash", type: "Mobile Wallet", status: "Active Direct", delay: "Instant Push" },
-    { name: "AirtelTigo Money", type: "Mobile Wallet", status: "Active Direct", delay: "Instant Push" },
-    { name: "Stanbic Bank statements", type: "SWIFT MT940", status: "Compatible", delay: "Batch Parser" },
-    { name: "GCB Bank statements", type: "SWIFT MT940", status: "Compatible", delay: "Batch Parser" }
+    { name: "Paystack API", type: "Gateway", status: "Available", delay: "Real-time Webhook" },
+    { name: "MTN Mobile Money", type: "Mobile Wallet", status: "Supported", delay: "Instant Push" },
+    { name: "Telecel Cash", type: "Mobile Wallet", status: "Supported", delay: "Instant Push" },
+    { name: "AirtelTigo Money", type: "Mobile Wallet", status: "Supported", delay: "Instant Push" },
+    { name: "Stanbic Bank statements", type: "SWIFT MT940", status: "Supported", delay: "Batch Parser" },
+    { name: "GCB Bank statements", type: "SWIFT MT940", status: "Supported", delay: "Batch Parser" }
   ];
 
   return (

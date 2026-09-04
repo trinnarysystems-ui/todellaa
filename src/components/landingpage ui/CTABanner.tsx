@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-export default function CTABanner() {
+interface CTABannerProps {
+  onOpenTrialModal?: () => void;
+}
+
+export default function CTABanner({ onOpenTrialModal }: CTABannerProps) {
   return (
     <section className="py-16 sm:py-24 bg-white font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +36,7 @@ export default function CTABanner() {
                       <span className="text-[9px] font-bold text-neutral-600 ml-1">TODELLAA App</span>
                     </div>
                     <div className="space-y-1 text-[9px]">
-                      <div className="bg-[#e8562a]/10 p-1.5 rounded font-bold text-[#e8562a]">Reconciliation Status: 100% Verified</div>
+                      <div className="bg-[#e8562a]/10 p-1.5 rounded font-bold text-[#e8562a]">Reconciliation Status: Verified</div>
                       <div className="bg-white p-1 rounded border border-neutral-200">INV-1042 · GHS 12,500 Matched</div>
                       <div className="bg-white p-1 rounded border border-neutral-200">INV-1043 · GHS 4,200 Matched</div>
                     </div>
@@ -53,26 +57,26 @@ export default function CTABanner() {
             {/* Right Column: CTA Copy & Actions */}
             <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
               <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight mb-4">
-                Ready to simplify your payments?
+                Ready to simplify your payment records?
               </h2>
 
               <p className="text-white/90 text-base sm:text-lg max-w-xl font-normal leading-relaxed mb-8">
-                Join thousands of businesses and institutions using TODELLAA to save time, reduce errors and grow with confidence.
+                Try TODELLAA free for 2 months and see how it fits your organisation.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                <Link
-                  to="/signup"
-                  className="w-full sm:w-auto bg-[#e8562a] hover:bg-[#d44820] text-white font-extrabold text-base py-3.5 px-8 rounded-xl transition-all shadow-md flex items-center justify-center gap-2"
+                <button
+                  onClick={onOpenTrialModal}
+                  className="w-full sm:w-auto bg-[#e8562a] hover:bg-[#d44820] text-white font-extrabold text-base py-3.5 px-8 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Start Free Trial <ArrowRight className="w-4 h-4" />
-                </Link>
+                  Start Your Free Trial <ArrowRight className="w-4 h-4" />
+                </button>
 
                 <a
-                  href="#demo"
-                  className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white font-bold text-base py-3.5 px-8 rounded-xl border border-white/40 transition-all text-center"
+                  href="#pricing"
+                  className="w-full sm:w-auto bg-transparent hover:bg-white/10 text-white font-bold text-base py-3.5 px-8 rounded-xl border border-white/40 transition-all text-center cursor-pointer"
                 >
-                  Book a Demo
+                  View Plans & Pricing
                 </a>
               </div>
             </div>

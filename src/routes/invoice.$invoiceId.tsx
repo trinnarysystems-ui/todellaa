@@ -342,24 +342,42 @@ function InvoicePortalPage() {
         <div className="bg-[#0f172a]/60 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500/0" />
 
-          <div className="flex items-center justify-between pb-5 border-b border-white/[0.05] mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/[0.05] mb-6">
             <div className="flex items-center gap-2.5">
               <FileText className="h-4.5 w-4.5 text-indigo-400" />
               <h3 className="text-sm font-bold text-slate-300 tracking-wider uppercase">
                 Invoice Details
               </h3>
             </div>
-            <span
-              className={`px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border shadow-sm ${
-                isPaid
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-emerald-500/5"
-                  : isReview
-                    ? "bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-amber-500/5 animate-pulse"
-                    : "bg-indigo-500/10 text-indigo-400 border-indigo-500/20 shadow-indigo-500/5"
-              }`}
-            >
-              {invoice.status === "review_required" ? "Under Review" : invoice.status}
-            </span>
+            
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const custName = invoice.customers?.name || "Customer";
+                  const amt = invoice.amount || 0;
+                  const shareUrl = window.location.href;
+                  const msg = `Hello ${custName}, your invoice from ${orgName} is GHS ${amt}. View invoice / confirm payment: ${shareUrl}`;
+                  const waUrl = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+                  window.open(waUrl, "_blank");
+                }}
+                className="bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] border border-[#25D366]/30 px-3 py-1.5 rounded-full text-[10px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                💬 Share via WhatsApp
+              </button>
+
+              <span
+                className={`px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border shadow-sm ${
+                  isPaid
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-emerald-500/5"
+                    : isReview
+                      ? "bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-amber-500/5 animate-pulse"
+                      : "bg-indigo-500/10 text-indigo-400 border-indigo-500/20 shadow-indigo-500/5"
+                }`}
+              >
+                {invoice.status === "review_required" ? "Under Review" : invoice.status}
+              </span>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

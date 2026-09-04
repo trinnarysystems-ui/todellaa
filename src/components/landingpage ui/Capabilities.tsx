@@ -59,8 +59,8 @@ export default function Capabilities() {
     },
     {
       icon: CreditCard,
-      title: "Accept Payments",
-      desc: "Collect payments via Paystack, direct bank transfers, and Mobile Money.",
+      title: "Record & Verify Payments",
+      desc: "Record payments made by your customers and confirm them against their invoices.",
       widget: (
         <div className="bg-slate-50 border border-[#ecebe4] rounded-xl p-2.5 mt-4 font-sans text-xs">
           <div className="flex items-center justify-between gap-1">
@@ -73,16 +73,16 @@ export default function Capabilities() {
     },
     {
       icon: Sparkles,
-      title: "Auto Reconciliation",
-      desc: "Automatically match payments to invoices with high precision and zero manual errors.",
+      title: "Automated Payment Matching",
+      desc: "Automatically match payment information against invoices and customer records.",
       widget: (
         <div className="bg-slate-50 border border-[#ecebe4] rounded-xl p-2.5 mt-4 font-sans text-xs">
           <div className="flex items-center justify-between text-[10px] font-bold text-[#010101] mb-1">
-            <span>Match Accuracy</span>
-            <span className="text-[#16a34a]">99.4%</span>
+            <span>Match Engine</span>
+            <span className="text-[#16a34a]">Automated</span>
           </div>
           <div className="w-full h-2 bg-[#e6e4dc] rounded-full overflow-hidden">
-            <div className="h-full bg-[#16a34a] w-[99.4%]" />
+            <div className="h-full bg-[#16a34a] w-full" />
           </div>
         </div>
       ),
@@ -95,7 +95,7 @@ export default function Capabilities() {
         <div className="bg-slate-50 border border-[#ecebe4] rounded-xl p-2.5 mt-4 font-sans text-xs">
           <div className="flex items-center justify-between text-[10px]">
             <span className="text-[#737373]">Outstanding</span>
-            <span className="font-bold text-[#dc2626]">-5.1% YoY</span>
+            <span className="font-bold text-[#16a34a]">Live Tracking</span>
           </div>
           <div className="flex items-end gap-1 h-6 mt-1">
             <div className="w-full bg-slate-500/30 h-[80%] rounded-t-xs" />
@@ -131,14 +131,14 @@ export default function Capabilities() {
     },
     {
       icon: ShieldCheck,
-      title: "Secure & Reliable",
-      desc: "Bank-grade security, role permissions, 256-bit SSL encryption, and daily data backup.",
+      title: "Reliable Cloud Infrastructure",
+      desc: "TODELLAA is built on reliable cloud infrastructure designed for high availability. We target 99.9% uptime to help keep your payment tracking running smoothly.",
       widget: (
         <div className="bg-slate-50 border border-[#ecebe4] rounded-xl p-2 mt-4 font-sans text-xs flex items-center justify-between">
           <span className="text-[10px] font-bold text-[#010101] flex items-center gap-1">
-            <Lock className="w-3 h-3 text-[#16a34a]" /> 256-bit SSL
+            <Lock className="w-3 h-3 text-[#16a34a]" /> High Availability
           </span>
-          <span className="bg-[#dcfce7] text-[#16a34a] text-[9px] font-bold px-1.5 py-0.5 rounded">SOC-2</span>
+          <span className="bg-[#dcfce7] text-[#16a34a] text-[9px] font-bold px-1.5 py-0.5 rounded">99.9% Target</span>
         </div>
       ),
     },
