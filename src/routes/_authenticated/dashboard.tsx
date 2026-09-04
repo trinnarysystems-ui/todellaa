@@ -95,10 +95,10 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
   };
 
   return (
-    <Card className="border-primary/20 bg-gradient-to-r from-primary/10 via-card to-primary/5 backdrop-blur-xl shadow-[var(--shadow-card)] rounded-[2rem] overflow-hidden p-6 border transition-all duration-200">
+    <Card className="border-[#e8562a]/20 bg-linear-to-r from-[#e8562a]/10 via-card to-[#e8562a]/5 backdrop-blur-xl shadow-[var(--shadow-card)] rounded-[2rem] overflow-hidden p-6 border transition-all duration-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-primary/15 flex items-center justify-center text-primary shrink-0 border border-primary/20">
+          <div className="h-10 w-10 rounded-full bg-[#e8562a]/15 flex items-center justify-center text-[#e8562a] shrink-0 border border-[#e8562a]/20">
             <Sparkles className="h-5 w-5 animate-pulse" />
           </div>
           <div>
@@ -109,7 +109,7 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
         {!summary && !loading && (
           <Button
             onClick={generateSummary}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold shadow-md px-5 h-9 text-xs rounded-full shrink-0"
+            className="bg-[#e8562a] hover:bg-[#d44820] text-white font-bold shadow-md px-5 h-9 text-xs rounded-full shrink-0 cursor-pointer"
           >
             Generate Insights
           </Button>
@@ -118,7 +118,7 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
 
       {loading && (
         <div className="mt-4 flex items-center gap-2.5 text-sm text-muted-foreground animate-pulse">
-          <Loader2 className="h-4 w-4 animate-spin text-primary" />
+          <Loader2 className="h-4 w-4 animate-spin text-[#e8562a]" />
           <span>Analyzing ledger reconciliation trends and checking duplicate payloads...</span>
         </div>
       )}
@@ -130,7 +130,7 @@ function AIDashboardInsights({ stats, orgId }: { stats: any; orgId?: string }) {
       )}
 
       {summary && (
-        <div className="mt-4 text-sm text-foreground/90 leading-relaxed font-medium animate-fade-in border-t border-purple-500/10 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="mt-4 text-sm text-foreground/90 leading-relaxed font-medium animate-fade-in border-t border-[#e8562a]/10 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <p className="flex-1">{summary}</p>
           <Button
             variant="ghost"
@@ -157,6 +157,8 @@ function DashboardPage() {
   const currency = organization?.currency ?? "GHS";
   const [wizardDismissed, setWizardDismissed] = useState(false);
   const [isAutoDismissed, setIsAutoDismissed] = useState(false);
+  const [resetVersion, setResetVersion] = useState(0);
+  const [manualDoneState, setManualDoneState] = useState<Record<number, boolean>>({});
   const [dateRange, setDateRange] = useState<DateRangeFilterValue>({
     startDate: null,
     endDate: null,
@@ -166,9 +168,21 @@ function DashboardPage() {
     if (!organization?.id) return;
     const dismissedKey = `todella_onboarding_dismissed_${organization.id}`;
     const firstSeenKey = `todella_onboarding_first_seen_${organization.id}`;
+    const manualDoneKey = `todella_onboarding_manual_done_${organization.id}`;
 
     const isDismissed = localStorage.getItem(dismissedKey) === "true";
     setWizardDismissed(isDismissed);
+
+    try {
+      const savedManual = localStorage.getItem(manualDoneKey);
+      if (savedManual) {
+        setManualDoneState(JSON.parse(savedManual));
+      } else {
+        setManualDoneState({});
+      }
+    } catch {
+      setManualDoneState({});
+    }
 
     let firstSeen = localStorage.getItem(firstSeenKey);
     if (!firstSeen) {
@@ -181,15 +195,24 @@ function DashboardPage() {
     if (Date.now() - firstSeenTime > thirtyDaysMs) {
       setIsAutoDismissed(true);
     }
-  }, [organization?.id]);
+  }, [organization?.id, resetVersion]);
 
   const handleResetWizard = () => {
     if (organization?.id) {
       const dismissedKey = `todella_onboarding_dismissed_${organization.id}`;
+      const manualDoneKey = `todella_onboarding_manual_done_${organization.id}`;
+      const visitedReportsKey = `todella_visited_reports_${organization.id}`;
+      const resetActiveKey = `todella_onboarding_reset_active_${organization.id}`;
+
       localStorage.removeItem(dismissedKey);
-      localStorage.removeItem(`todella_visited_reports_${organization.id}`);
+      localStorage.removeItem(visitedReportsKey);
+      localStorage.removeItem(manualDoneKey);
+      localStorage.setItem(resetActiveKey, "true");
     }
     setWizardDismissed(false);
+    setIsAutoDismissed(false);
+    setManualDoneState({});
+    setResetVersion((prev) => prev + 1);
   };
 
   const handleDismiss = () => {
@@ -305,35 +328,49 @@ function DashboardPage() {
     },
   });
 
+  const isResetActive = typeof window !== "undefined" && organization?.id
+    ? localStorage.getItem(`todella_onboarding_reset_active_${organization.id}`) === "true"
+    : false;
+
+  const getStepDone = (index: number, dbCondition: boolean) => {
+    if (manualDoneState[index] !== undefined) {
+      return manualDoneState[index];
+    }
+    if (isResetActive) {
+      return false;
+    }
+    return dbCondition;
+  };
+
   const onboardingSteps = [
     {
       title: "Create Services",
       description: "Set up your rate card with coaching, hostel, library fees.",
-      done: (onboardingData?.services ?? 0) > 0,
+      done: getStepDone(0, (onboardingData?.services ?? 0) > 0),
       href: "/services",
     },
     {
       title: "Add Customers",
       description: "Register the clients you will bill.",
-      done: (onboardingData?.customers ?? 0) > 0,
+      done: getStepDone(1, (onboardingData?.customers ?? 0) > 0),
       href: "/customers",
     },
     {
       title: "Create Invoice",
       description: "Generate your first payment request.",
-      done: (onboardingData?.invoices ?? 0) > 0,
+      done: getStepDone(2, (onboardingData?.invoices ?? 0) > 0),
       href: "/invoices",
     },
     {
       title: "Import Payments",
       description: "Upload a payment file or record a manual entry.",
-      done: (onboardingData?.payments ?? 0) > 0,
+      done: getStepDone(3, (onboardingData?.payments ?? 0) > 0),
       href: "/payments",
     },
     {
       title: "View Reports",
       description: "Check analytics and audit reports.",
-      done: typeof window !== "undefined" && (localStorage.getItem(`todella_visited_reports_${organization?.id}`) === "true" || (data?.chart?.length ?? 0) > 0),
+      done: getStepDone(4, typeof window !== "undefined" && (localStorage.getItem(`todella_visited_reports_${organization?.id}`) === "true" || (data?.chart?.length ?? 0) > 0)),
       href: "/reports",
     },
   ];
@@ -347,7 +384,7 @@ function DashboardPage() {
       label: "Total Expected Amount",
       value: data?.expected ?? 0,
       icon: TrendingUp,
-      tone: "text-[#0070ba] dark:text-cyan-400 bg-[#0070ba]/5 dark:bg-[#0070ba]/10 border-sky-100 dark:border-sky-500/20",
+      tone: "text-[#e8562a] dark:text-[#f06e42] bg-[#e8562a]/10 dark:bg-[#e8562a]/20 border-orange-200 dark:border-orange-500/20",
       isCurrency: true,
     },
     {
@@ -416,7 +453,7 @@ function DashboardPage() {
       label: "Total Refunded Payout Value",
       value: data?.completedRefundsAmount ?? 0,
       icon: RotateCcw,
-      tone: "text-[#0070ba] dark:text-cyan-400 bg-[#0070ba]/5 dark:bg-[#0070ba]/10 border-sky-100 dark:border-sky-500/20",
+      tone: "text-[#e8562a] dark:text-[#f06e42] bg-[#e8562a]/10 dark:bg-[#e8562a]/20 border-orange-200 dark:border-orange-500/20",
       isCurrency: true,
     },
   ];
@@ -427,7 +464,7 @@ function DashboardPage() {
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground font-sans">
             Welcome back,{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#003087] to-[#0070ba] dark:from-blue-400 dark:to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-linear-to-r from-[#e8562a] to-[#f06e42]">
               {profile?.full_name?.split(" ")[0] ?? "there"}
             </span>
           </h1>
@@ -435,7 +472,19 @@ function DashboardPage() {
             Here's a breakdown of your payment status and activities.
           </p>
         </div>
-        <DateRangeFilter onChange={setDateRange} />
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleResetWizard}
+            className="h-9 px-3 text-xs font-semibold gap-1.5 border-[#e8562a]/30 text-[#e8562a] hover:bg-[#e8562a]/10 rounded-xl shrink-0 cursor-pointer"
+            title="Reset and re-open onboarding checklist"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            <span>Reset Checklist</span>
+          </Button>
+          <DateRangeFilter onChange={setDateRange} />
+        </div>
       </div>
 
       {/* AI Dashboard Insights */}
@@ -445,31 +494,31 @@ function DashboardPage() {
 
       {/* Onboarding Wizard */}
       {showWizard && (
-        <Card className="relative border-primary/30 bg-gradient-to-br from-primary/5 via-card to-primary/5 shadow-[var(--shadow-card)] rounded-2xl overflow-hidden">
+        <Card className="relative border-[#e8562a]/30 bg-linear-to-br from-[#e8562a]/5 via-card to-[#e8562a]/5 shadow-[var(--shadow-card)] rounded-2xl overflow-hidden">
           <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
             <button
               onClick={handleResetWizard}
-              className="h-7 text-[10px] font-bold px-2.5 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/40"
+              className="h-7 text-[10px] font-bold px-2.5 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/40 cursor-pointer"
               title="Reset onboarding checklist progress"
             >
               Reset Checklist
             </button>
             <button
               onClick={handleDismiss}
-              className="h-7 text-[10px] font-bold px-3 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/40"
+              className="h-7 text-[10px] font-bold px-3 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors border border-border/40 cursor-pointer"
             >
               I've got it, don't show again
             </button>
             <button
               onClick={handleDismiss}
-              className="h-7 w-7 rounded-full bg-muted/60 hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              className="h-7 w-7 rounded-full bg-muted/60 hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
             >
               <X className="h-3.5 w-3.5" />
             </button>
           </div>
           <CardContent className="p-6 sm:p-8">
             <div className="flex items-center gap-3 mb-5">
-              <div className="h-10 w-10 rounded-full bg-primary/15 text-primary flex items-center justify-center border border-primary/20">
+              <div className="h-10 w-10 rounded-full bg-[#e8562a]/15 text-[#e8562a] flex items-center justify-center border border-[#e8562a]/20">
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
@@ -490,7 +539,7 @@ function DashboardPage() {
                 </div>
                 <button
                   onClick={handleResetWizard}
-                  className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 underline hover:no-underline"
+                  className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 underline hover:no-underline cursor-pointer"
                 >
                   Reset Progress
                 </button>
@@ -498,7 +547,7 @@ function DashboardPage() {
             )}
             <div className="w-full bg-muted/40 rounded-full h-2 mb-6 overflow-hidden">
               <div
-                className="bg-primary h-full rounded-full transition-all duration-500"
+                className="bg-[#e8562a] h-full rounded-full transition-all duration-500"
                 style={{ width: `${(stepsCompleted / onboardingSteps.length) * 100}%` }}
               />
             </div>
@@ -742,7 +791,7 @@ function DashboardPage() {
                   />
                   <Bar
                     dataKey="amount"
-                    fill="var(--color-primary)"
+                    fill="#e8562a"
                     radius={[6, 6, 0, 0]}
                     maxBarSize={45}
                   />

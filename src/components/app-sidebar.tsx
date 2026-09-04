@@ -71,7 +71,7 @@ export function AppSidebar() {
           </svg>
           {!collapsed && (
             <div className="flex flex-col min-w-0">
-              <span className="font-extrabold text-sm tracking-tight text-slate-900 leading-none">
+              <span className="font-extrabold text-sm tracking-tight text-sidebar-foreground leading-none">
                 Todellaa
               </span>
               <span className="text-[10px] text-sidebar-foreground/60 font-medium truncate mt-1">{organization?.name ?? "Workspace"}</span>

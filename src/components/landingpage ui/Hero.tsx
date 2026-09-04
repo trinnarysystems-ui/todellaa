@@ -50,7 +50,7 @@ export default function Hero({ onOpenTrialModal }: HeroProps) {
       
       {/* Background Decorative Ambient Glows & Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e6e4dc_1px,transparent_1px),linear-gradient(to_bottom,#e6e4dc_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40 pointer-events-none" />
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-200 h-87.5 bg-linear-to-tr from-blue-500/10 via-neutral-100/10 to-transparent blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-200 h-87.5 bg-linear-to-tr from-[#e8562a]/10 via-neutral-100/10 to-transparent blur-3xl rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -150,7 +150,7 @@ export default function Hero({ onOpenTrialModal }: HeroProps) {
             className="lg:col-span-7 w-full relative"
           >
             {/* Background Subtle Glow Behind Card */}
-            <div className="absolute -inset-2 bg-linear-to-r from-blue-500/10 via-neutral-100/30 to-transparent blur-xl rounded-3xl" />
+            <div className="absolute -inset-2 bg-linear-to-r from-[#e8562a]/10 via-neutral-100/30 to-transparent blur-xl rounded-3xl" />
 
             <div className="bg-white rounded-2xl border border-[#e6e4dc] shadow-2xl p-4 sm:p-5 relative overflow-hidden font-sans">
               

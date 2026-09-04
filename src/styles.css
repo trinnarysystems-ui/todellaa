@@ -72,29 +72,29 @@
   --card-foreground: oklch(0.20 0.02 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.20 0.02 240);
-  --primary: oklch(0.48 0.19 240); /* Beautiful digital PayPal Blue */
+  --primary: #e8562a; /* Brand primary orange */
   --primary-foreground: oklch(1 0 0);
-  --primary-glow: oklch(0.65 0.18 220);
+  --primary-glow: #f06e42;
   --secondary: oklch(0.82 0.17 80); /* Bright gold/yellow accent */
-  --secondary-foreground: oklch(0.20 0.04 245); /* Deep dark blue-black for yellow button */
+  --secondary-foreground: oklch(0.20 0.04 245);
   --muted: oklch(0.94 0.01 240); /* Soft grayish input bg */
   --muted-foreground: oklch(0.48 0.02 240);
-  --accent: oklch(0.95 0.02 240);
-  --accent-foreground: oklch(0.48 0.19 240);
+  --accent: #fff5f0;
+  --accent-foreground: #e8562a;
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --success: oklch(0.62 0.18 150);
   --warning: oklch(0.78 0.16 70);
-  --border: oklch(0.90 0.01 240); /* Soft grayish blue borders */
+  --border: oklch(0.90 0.01 240);
   --input: oklch(0.90 0.01 240);
-  --ring: oklch(0.48 0.19 240);
-  --gradient-hero: linear-gradient(135deg, oklch(0.98 0.01 240) 0%, oklch(0.95 0.02 235) 100%);
-  --gradient-primary: linear-gradient(135deg, oklch(0.32 0.17 245) 0%, oklch(0.48 0.19 240) 100%);
+  --ring: #e8562a;
+  --gradient-hero: linear-gradient(135deg, #fff5f0 0%, #ffeae0 100%);
+  --gradient-primary: linear-gradient(135deg, #e8562a 0%, #f06e42 100%);
   --gradient-dark: linear-gradient(135deg, oklch(0.18 0.04 240) 0%, oklch(0.12 0.03 240) 100%);
-  --shadow-elegant: 0 15px 40px -10px oklch(0.32 0.17 245 / 0.12);
-  --shadow-card: 0 4px 20px -4px oklch(0.20 0.04 240 / 0.04);
-  --chart-1: oklch(0.48 0.19 240);
-  --chart-2: oklch(0.65 0.18 220);
+  --shadow-elegant: 0 15px 40px -10px rgba(232, 86, 42, 0.2);
+  --shadow-card: 0 4px 20px -4px rgba(0, 0, 0, 0.04);
+  --chart-1: #e8562a;
+  --chart-2: #f06e42;
   --chart-3: oklch(0.82 0.17 80);
   --chart-4: oklch(0.62 0.18 150);
   --chart-5: oklch(0.55 0.22 25);
@@ -109,38 +109,38 @@
 }
 
 .dark {
-  --background: oklch(0.12 0.03 240); /* Elegant deep navy blue background */
-  --foreground: oklch(0.96 0.01 240); /* Soft light gray text */
-  --card: oklch(0.16 0.04 240); /* Navy slate cards */
-  --card-foreground: oklch(0.96 0.01 240);
-  --popover: oklch(0.16 0.04 240);
-  --popover-foreground: oklch(0.96 0.01 240);
-  --primary: oklch(0.55 0.18 220); /* Vibrant electric blue */
-  --primary-foreground: oklch(0.12 0.03 240);
-  --secondary: oklch(0.85 0.15 85); /* Bright gold accent */
-  --secondary-foreground: oklch(0.12 0.03 240);
-  --muted: oklch(0.20 0.04 240); /* Dark slate input bg */
-  --muted-foreground: oklch(0.70 0.02 240);
-  --accent: oklch(0.20 0.04 240);
-  --accent-foreground: oklch(0.96 0.01 240);
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #e8562a;
+  --primary-foreground: #ffffff;
+  --secondary: oklch(0.85 0.15 85);
+  --secondary-foreground: #0f172a;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #334155;
+  --accent-foreground: #f8fafc;
   --destructive: oklch(0.60 0.20 25);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.22 0.04 240); /* Dark navy borders */
-  --input: oklch(0.22 0.04 240);
-  --ring: oklch(0.55 0.18 220);
-  --chart-1: oklch(0.55 0.18 220);
-  --chart-2: oklch(0.85 0.15 85);
+  --border: #334155;
+  --input: #334155;
+  --ring: #e8562a;
+  --chart-1: #e8562a;
+  --chart-2: #f06e42;
   --chart-3: oklch(0.62 0.18 150);
   --chart-4: oklch(0.60 0.20 25);
   --chart-5: oklch(0.70 0.02 240);
-  --sidebar: oklch(0.14 0.04 240); /* Deeper navy sidebar in dark mode */
-  --sidebar-foreground: oklch(0.96 0.01 240);
-  --sidebar-primary: oklch(0.55 0.18 220);
-  --sidebar-primary-foreground: oklch(0.12 0.03 240);
-  --sidebar-accent: oklch(0.20 0.04 240);
-  --sidebar-accent-foreground: oklch(0.96 0.01 240);
-  --sidebar-border: oklch(0.20 0.04 240);
-  --sidebar-ring: oklch(0.55 0.18 220);
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #e8562a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #e8562a;
+  --sidebar-border: #334155;
+  --sidebar-ring: #e8562a;
 }
 
 @layer base {

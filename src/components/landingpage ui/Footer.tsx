@@ -46,7 +46,7 @@ export default function Footer() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="text-xl font-bold tracking-tight text-[#010101]">Todellaa</span>
+                <span className="text-xl font-bold tracking-tight text-[#010101] dark:text-white">Todellaa</span>
               </Link>
 
               <p className="text-sm text-[#737373] leading-relaxed max-w-sm font-normal mb-6">

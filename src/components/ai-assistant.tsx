@@ -291,7 +291,7 @@ export function AIAssistant() {
       <SheetTrigger asChild>
         <Button
           size="icon"
-          className="fixed bottom-6 right-6 h-14 w-14 shadow-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-full z-40 hover:scale-105 active:scale-95 transition-all duration-200"
+          className="fixed bottom-6 right-6 h-14 w-14 shadow-2xl bg-linear-to-tr from-[#e8562a] to-[#f06e42] hover:from-[#d44820] hover:to-[#e8562a] text-white rounded-full z-40 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
           aria-label="Open Assistant"
         >
           <Sparkles className="h-6 w-6 animate-pulse" />
@@ -300,15 +300,15 @@ export function AIAssistant() {
 
       {/* Slide-out Panel */}
       <SheetContent className="w-full sm:max-w-md md:max-w-lg p-0 flex flex-col h-full bg-card/95 backdrop-blur-xl border-l border-border/80 shadow-2xl">
-        <SheetHeader className="p-4 border-b bg-gradient-to-r from-indigo-500/10 to-purple-500/5 flex flex-row items-center justify-between space-y-0">
+        <SheetHeader className="p-4 border-b bg-linear-to-r from-[#e8562a]/10 to-[#f06e42]/5 flex flex-row items-center justify-between space-y-0">
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md">
+            <div className="h-9 w-9 rounded-xl bg-linear-to-tr from-[#e8562a] to-[#f06e42] flex items-center justify-center text-white shadow-md">
               <Sparkles className="h-4.5 w-4.5" />
             </div>
             <div>
               <SheetTitle className="text-base font-extrabold font-sans leading-none flex items-center gap-1.5">
                 Todella Assistant
-                <Badge variant="outline" className="text-[9px] py-0.5 px-1.5 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800/40 rounded-full font-black uppercase tracking-wider">Live BI</Badge>
+                <Badge variant="outline" className="text-[9px] py-0.5 px-1.5 bg-orange-50 dark:bg-orange-950/30 text-[#e8562a] dark:text-[#f06e42] border-orange-200 dark:border-orange-800/40 rounded-full font-black uppercase tracking-wider">Live BI</Badge>
               </SheetTitle>
               <p className="text-[10px] text-muted-foreground mt-1">Ask questions in natural language</p>
             </div>
@@ -316,7 +316,7 @@ export function AIAssistant() {
           <Button 
             variant="ghost" 
             size="icon" 
-            className="h-8 w-8 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground"
+            className="h-8 w-8 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
             onClick={clearChat}
             title="Clear Chat History"
           >
@@ -335,7 +335,7 @@ export function AIAssistant() {
                 {/* Avatar Icon */}
                 <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm ${
                   msg.role === "assistant" 
-                    ? "bg-gradient-to-tr from-indigo-500 to-purple-500 text-white" 
+                    ? "bg-linear-to-tr from-[#e8562a] to-[#f06e42] text-white" 
                     : "bg-muted text-muted-foreground border"
                 }`}>
                   {msg.role === "assistant" ? <Bot className="h-4 w-4" /> : <User className="h-4 w-4" />}
@@ -345,7 +345,7 @@ export function AIAssistant() {
                 <div className={`space-y-3 rounded-2xl p-3.5 shadow-sm text-sm border transition-all duration-200 ${
                   msg.role === "assistant" 
                     ? "bg-card text-foreground border-border/80 rounded-tl-none" 
-                    : "bg-primary text-primary-foreground border-primary rounded-tr-none"
+                    : "bg-[#e8562a] text-white border-[#e8562a] rounded-tr-none"
                 }`}>
                   <div>{msg.role === "assistant" ? renderMarkdown(msg.content) : msg.content}</div>
 
@@ -355,10 +355,10 @@ export function AIAssistant() {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="text-[10px] h-7 px-2.5 font-bold rounded-lg border-border/80 hover:bg-muted"
+                        className="text-[10px] h-7 px-2.5 font-bold rounded-lg border-border/80 hover:bg-muted cursor-pointer"
                         onClick={() => exportPDF(msg.content, "AI Financial Analytics Summary")}
                       >
-                        <FileText className="h-3 w-3 mr-1 text-indigo-500" /> Print Summary
+                        <FileText className="h-3 w-3 mr-1 text-[#e8562a]" /> Print Summary
                       </Button>
                     </div>
                   )}
@@ -375,11 +375,11 @@ export function AIAssistant() {
 
             {loading && (
               <div className="flex gap-3 max-w-[85%]">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 text-white flex items-center justify-center shrink-0 shadow-sm animate-pulse">
+                <div className="h-8 w-8 rounded-lg bg-linear-to-tr from-[#e8562a] to-[#f06e42] text-white flex items-center justify-center shrink-0 shadow-sm animate-pulse">
                   <Bot className="h-4 w-4" />
                 </div>
                 <div className="bg-card text-foreground border border-border/85 rounded-2xl rounded-tl-none p-3.5 flex items-center gap-2 shadow-sm text-sm">
-                  <Loader2 className="h-4 w-4 animate-spin text-indigo-500" />
+                  <Loader2 className="h-4 w-4 animate-spin text-[#e8562a]" />
                   <span className="text-muted-foreground font-medium">Scanning organization ledger...</span>
                 </div>
               </div>
@@ -396,7 +396,7 @@ export function AIAssistant() {
                 <button
                   key={idx}
                   onClick={() => handleSend(s)}
-                  className="text-left text-xs bg-muted/65 hover:bg-muted border border-border/50 hover:border-indigo-200/50 p-2.5 rounded-xl text-foreground font-medium transition-all duration-150"
+                  className="text-left text-xs bg-muted/65 hover:bg-muted border border-border/50 hover:border-orange-200/50 p-2.5 rounded-xl text-foreground font-medium transition-all duration-150 cursor-pointer"
                 >
                   {s}
                 </button>
@@ -420,13 +420,13 @@ export function AIAssistant() {
               onChange={(e) => setInput(e.target.value)}
               disabled={loading}
               placeholder="Ask anything e.g. Show today's payments..."
-              className="flex-1 h-10 px-3.5 bg-muted/50 focus:bg-muted border border-border/60 focus:border-indigo-500/80 rounded-xl text-sm focus:outline-none transition-all duration-200 disabled:opacity-50"
+              className="flex-1 h-10 px-3.5 bg-muted/50 focus:bg-muted border border-border/60 focus:border-[#e8562a]/80 rounded-xl text-sm focus:outline-none transition-all duration-200 disabled:opacity-50"
             />
             <Button
               type="submit"
               size="icon"
               disabled={!input.trim() || loading}
-              className="h-10 w-10 bg-gradient-to-tr from-indigo-600 to-purple-600 text-white rounded-xl shadow-md hover:scale-105 active:scale-95 disabled:scale-100 disabled:opacity-50 transition-all"
+              className="h-10 w-10 bg-linear-to-tr from-[#e8562a] to-[#f06e42] hover:from-[#d44820] hover:to-[#e8562a] text-white rounded-xl shadow-md hover:scale-105 active:scale-95 disabled:scale-100 disabled:opacity-50 transition-all cursor-pointer"
             >
               <Send className="h-4 w-4" />
             </Button>
