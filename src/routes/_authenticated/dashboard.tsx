@@ -572,7 +572,7 @@ function DashboardPage() {
                         {step.done ? <CheckCircle className="h-3.5 w-3.5" /> : idx + 1}
                       </div>
                       <span
-                        className={`text-xs font-bold ${step.done ? "text-emerald-600 dark:text-emerald-400 line-through" : "text-foreground"}`}
+                        className="text-xs font-extrabold text-[#010101] dark:text-white"
                       >
                         {step.title}
                       </span>

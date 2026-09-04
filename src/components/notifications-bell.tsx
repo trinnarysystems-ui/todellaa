@@ -52,7 +52,7 @@ export function NotificationsBell() {
           );
           toast(payload.new.title, {
             description: payload.new.message,
-            icon: <Bell className="h-4 w-4 text-cyan-400" />,
+            icon: <Bell className="h-4 w-4 text-[#e8562a]" />,
           });
         }
       )
@@ -93,7 +93,7 @@ export function NotificationsBell() {
       case "duplicate":
         return <AlertCircle className="h-4 w-4 text-rose-500" />;
       case "refund_alert":
-        return <RefreshCw className="h-4 w-4 text-cyan-400" />;
+        return <RefreshCw className="h-4 w-4 text-[#e8562a]" />;
       default:
         return <Sparkles className="h-4 w-4 text-primary" />;
     }
@@ -111,8 +111,8 @@ export function NotificationsBell() {
           <Bell className="h-4.5 w-4.5" />
           {unreadCount > 0 && (
             <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e8562a] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e8562a]"></span>
             </span>
           )}
         </Button>
@@ -122,7 +122,7 @@ export function NotificationsBell() {
           <div className="flex items-center gap-2">
             <h3 className="font-extrabold text-sm text-foreground">Notifications</h3>
             {unreadCount > 0 && (
-              <Badge variant="secondary" className="rounded-full px-2 py-0.5 text-[10px] bg-cyan-500/10 text-cyan-500 border-cyan-500/20 font-black">
+              <Badge variant="secondary" className="rounded-full px-2 py-0.5 text-[10px] bg-[#e8562a]/10 text-[#e8562a] border-[#e8562a]/20 font-black">
                 {unreadCount} new
               </Badge>
             )}
@@ -161,7 +161,7 @@ export function NotificationsBell() {
                 <div
                   key={n.id}
                   className={`flex gap-3.5 p-4 transition-colors duration-150 hover:bg-muted/10 ${
-                    !n.is_read ? "bg-cyan-500/[0.02]" : ""
+                    !n.is_read ? "bg-[#e8562a]/[0.02]" : ""
                   }`}
                 >
                   <div className="mt-0.5 shrink-0">

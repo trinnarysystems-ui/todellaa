@@ -73,8 +73,8 @@ function AuthenticatedLayout() {
               </Button>
               <div className="h-4 w-px bg-border hidden sm:block" />
               <div className="hidden sm:flex flex-col items-end leading-none text-right">
-                <span className="text-sm font-semibold text-foreground">{profile?.full_name ?? "User"}</span>
-                <span className="text-[10px] text-muted-foreground mt-1 font-medium">{organization?.name ?? "Personal Workspace"}</span>
+                <span className="text-sm font-extrabold text-[#010101] dark:text-white">{profile?.full_name ?? "User"}</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-300 mt-1 font-medium">{organization?.name ?? "Personal Workspace"}</span>
               </div>
             </div>
           </header>

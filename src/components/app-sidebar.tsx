@@ -102,7 +102,7 @@ export function AppSidebar() {
         {!collapsed && profile && (
           <div className="px-2 py-1.5 text-xs text-sidebar-foreground">
             <p className="font-bold truncate text-[11px] uppercase tracking-wider text-sidebar-foreground/50 leading-none">User</p>
-            <p className="font-semibold truncate text-slate-900 mt-1">{profile.full_name} ({role})</p>
+            <p className="font-extrabold truncate text-xs text-sidebar-foreground dark:text-white mt-1">{profile.full_name} ({role})</p>
           </div>
         )}
         <Button 
