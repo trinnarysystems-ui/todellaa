@@ -165,46 +165,42 @@
   }
 }
 
-/* Custom Orange Brand Scrollbar */
+/* Custom Subtle Brand Orange Scrollbar */
 html {
-  scrollbar-color: #e8562a rgba(240, 238, 230, 0.4);
+  scrollbar-color: rgba(232, 86, 42, 0.4) transparent;
   scrollbar-width: thin;
 }
 
 .dark html {
-  scrollbar-color: #e8562a rgba(30, 41, 59, 0.6);
+  scrollbar-color: rgba(232, 86, 42, 0.45) transparent;
 }
 
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f4ef;
-  border-radius: 9999px;
-}
-
-.dark ::-webkit-scrollbar-track {
-  background: #0f172a;
-  border-radius: 9999px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e8562a;
+  background: rgba(232, 86, 42, 0.35);
   border-radius: 9999px;
-  border: 2px solid #f5f4ef;
   transition: background 0.2s ease;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: #e8562a;
-  border-radius: 9999px;
-  border: 2px solid #0f172a;
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 86, 42, 0.85);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #d44820;
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(232, 86, 42, 0.35);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 86, 42, 0.85);
 }
 
 /* Custom premium animations & utility classes */
