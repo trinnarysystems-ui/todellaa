@@ -93,7 +93,7 @@ export default function Navbar({ onOpenTrialModal, showBanner = true }: NavbarPr
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-xl font-bold tracking-tight text-[#010101] dark:text-white">Todellaa</span>
+            <span className="text-xl font-extrabold tracking-tight text-[#010101]">Todellaa</span>
           </Link>
 
           {/* Desktop Navigation Links */}

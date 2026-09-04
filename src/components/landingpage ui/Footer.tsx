@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Facebook, Linkedin, Twitter, Youtube, Send } from "lucide-react";
+import { Facebook, Linkedin, Twitter, Youtube, Instagram, Send } from "lucide-react";
 import { toast } from "sonner";
+
+const TikTokIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 1 1-2.896-2.896c.244 0 .48.03.707.087V9.33a6.34 6.34 0 1 0 5.634 6.29V9.237a8.217 8.217 0 0 0 5.17 1.83V7.622a4.832 4.832 0 0 1-1.4-.936z"/>
+  </svg>
+);
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -46,7 +52,7 @@ export default function Footer() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="text-xl font-bold tracking-tight text-[#010101] dark:text-white">Todellaa</span>
+                <span className="text-xl font-extrabold tracking-tight text-[#010101]">Todellaa</span>
               </Link>
 
               <p className="text-sm text-[#737373] leading-relaxed max-w-sm font-normal mb-6">
@@ -55,19 +61,70 @@ export default function Footer() {
             </div>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-2">
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#010101] hover:border-[#010101] flex items-center justify-center transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#010101] hover:border-[#010101] flex items-center justify-center transition-colors">
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#010101] hover:border-[#010101] flex items-center justify-center transition-colors">
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#010101] hover:border-[#010101] flex items-center justify-center transition-colors">
-                <Youtube className="w-4 h-4" />
-              </a>
+            <div>
+              <p className="text-[10px] font-extrabold text-[#a3a3a3] uppercase tracking-wider mb-2 font-sans">Official Handles (@todellaa)</p>
+              <div className="flex items-center gap-2 flex-wrap">
+                <a
+                  href="https://facebook.com/todellaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook @todellaa"
+                  title="Facebook @todellaa"
+                  className="w-8.5 h-8.5 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#e8562a] hover:border-[#e8562a] flex items-center justify-center transition-colors shadow-xs"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://x.com/todellaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter / X @todellaa"
+                  title="Twitter / X @todellaa"
+                  className="w-8.5 h-8.5 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#e8562a] hover:border-[#e8562a] flex items-center justify-center transition-colors shadow-xs"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://instagram.com/todellaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram @todellaa"
+                  title="Instagram @todellaa"
+                  className="w-8.5 h-8.5 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#e8562a] hover:border-[#e8562a] flex items-center justify-center transition-colors shadow-xs"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://tiktok.com/@todellaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok @todellaa"
+                  title="TikTok @todellaa"
+                  className="w-8.5 h-8.5 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#e8562a] hover:border-[#e8562a] flex items-center justify-center transition-colors shadow-xs"
+                >
+                  <TikTokIcon className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://youtube.com/@todellaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube @todellaa"
+                  title="YouTube @todellaa"
+                  className="w-8.5 h-8.5 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#e8562a] hover:border-[#e8562a] flex items-center justify-center transition-colors shadow-xs"
+                >
+                  <Youtube className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://linkedin.com/company/todellaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn @todellaa"
+                  title="LinkedIn @todellaa"
+                  className="w-8.5 h-8.5 rounded-full bg-white border border-[#e6e4dc] text-[#525252] hover:text-[#e8562a] hover:border-[#e8562a] flex items-center justify-center transition-colors shadow-xs"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
+              </div>
             </div>
           </div>
 

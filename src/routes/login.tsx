@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { ShieldCheck, Loader2, ArrowLeft, Eye, EyeOff } from "lucide-react";
 
 import logo from "@/assets/logo.png";
+import loginBg from "@/assets/login-bg.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
@@ -86,6 +87,16 @@ function LoginPage() {
         style={{ backgroundColor: "#040814" }}
         className="relative hidden lg:flex flex-col justify-between p-12 lg:p-16 text-white overflow-hidden select-none min-h-screen"
       >
+        {/* Abstract Artwork Background Overlay */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img 
+            src={loginBg} 
+            alt="Abstract dark background artwork" 
+            className="w-full h-full object-cover opacity-45 mix-blend-screen scale-105"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-[#040814]/90 via-[#040814]/40 to-[#040814]/70" />
+        </div>
+
         {/* Abstract Smooth Orange Waves Glow Overlay */}
         <div className="absolute -bottom-32 -left-32 w-162.5 h-162.5 bg-linear-to-tr from-orange-700/40 via-orange-500/25 to-transparent rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-1/3 -right-32 w-125 h-125 bg-orange-950/20 rounded-full blur-[140px] pointer-events-none" />

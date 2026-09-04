@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import ctaBg from "@/assets/cta-bg.png";
 
 interface CTABannerProps {
   onOpenTrialModal?: () => void;
@@ -13,11 +14,21 @@ export default function CTABanner({ onOpenTrialModal }: CTABannerProps) {
         
         <div className="bg-[#121214] border border-neutral-800 rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
           
+          {/* Abstract Image Background Overlay */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <img 
+              src={ctaBg} 
+              alt="Abstract background pattern" 
+              className="w-full h-full object-cover opacity-35 mix-blend-screen scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#121214]/90 via-[#121214]/60 to-transparent" />
+          </div>
+
           {/* Background Decorative Curves */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute inset-0 opacity-15 pointer-events-none">
             <svg className="w-full h-full" viewBox="0 0 1200 400" fill="none" preserveAspectRatio="none">
-              <path d="M0 200 Q 300 50, 600 200 T 1200 200" stroke="white" strokeWidth="40" />
-              <path d="M0 300 Q 400 100, 800 300 T 1200 100" stroke="white" strokeWidth="20" />
+              <path d="M0 200 Q 300 50, 600 200 T 1200 200" stroke="#e8562a" strokeWidth="20" />
+              <path d="M0 300 Q 400 100, 800 300 T 1200 100" stroke="#f06e42" strokeWidth="10" />
             </svg>
           </div>
 
